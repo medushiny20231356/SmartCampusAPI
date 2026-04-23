@@ -75,12 +75,26 @@ You should see a JSON response with API metadata.
 
 ---
 
-## Sample curl Commands
+## Curl Commands
 
 ### 1. Discovery Endpoint — Get API Metadata
 ```bash
 curl -X GET http://localhost:8080/SmartCampusAPIs/api/v1
 ```
+**Response (200 OK):**
+```json
+{
+  "contact": "admin@smartcampus.ac.uk",
+  "name": "Smart Campus Sensor & Room Management API",
+  "resources": {
+    "rooms": "/api/v1/rooms",
+    "sensors": "/api/v1/sensors"
+  },
+  "version": "1.0"
+}
+```
+
+---
 
 ### 2. Create a Room
 ```bash
