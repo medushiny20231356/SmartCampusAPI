@@ -75,7 +75,7 @@ You should see a JSON response with API metadata.
 
 ---
 
-## Curl Commands
+## Sample curl Commands
 
 ### 1. Discovery Endpoint — Get API Metadata
 ```bash
@@ -100,46 +100,106 @@ curl -X GET http://localhost:8080/SmartCampusAPIs/api/v1
 ```bash
 curl -X POST http://localhost:8080/SmartCampusAPIs/api/v1/rooms \
   -H "Content-Type: application/json" \
-  -d '{"id":"LIB-301","name":"Library Quiet Study","capacity":50}'
+  -d '{"id":"LIB-301","name":"Library Study","capacity":50}'
 ```
+**Response (201 Created):**
+```json
+{
+  "id": "LIB-301",
+  "name": "Library Study",
+  "capacity": 50,
+  "sensorIds": []
+}
+```
+
+---
 
 ### 3. Get All Rooms
 ```bash
 curl -X GET http://localhost:8080/SmartCampusAPIs/api/v1/rooms
 ```
-
-### 4. Get a Specific Room by ID
-```bash
-curl -X GET http://localhost:8080/SmartCampusAPIs/api/v1/rooms/LIB-301
+**Response (200 OK):**
+```json
+[
+  {
+    "id": "LIB-301",
+    "name": "Library Study",
+    "capacity": 50,
+    "sensorIds": []
+  }
+]
 ```
 
-### 5. Create a Sensor (linked to a Room)
+---
+
+### 4. Create a Sensor (linked to a Room)
 ```bash
 curl -X POST http://localhost:8080/SmartCampusAPIs/api/v1/sensors \
   -H "Content-Type: application/json" \
   -d '{"id":"TEMP-001","type":"Temperature","status":"ACTIVE","roomId":"LIB-301"}'
 ```
+**Response (201 Created):**
+```json
+{
+  "id": "TEMP-001",
+  "type": "Temperature",
+  "status": "ACTIVE",
+  "currentValue": 0.0,
+  "roomId": "LIB-301"
+}
+```
 
-### 6. Get All Sensors Filtered by Type
+---
+
+### 5. Get All Sensors Filtered by Type
 ```bash
 curl -X GET "http://localhost:8080/SmartCampusAPIs/api/v1/sensors?type=Temperature"
 ```
+**Response (200 OK):**
+```json
+[
+  {
+    "id": "TEMP-001",
+    "type": "Temperature",
+    "status": "ACTIVE",
+    "currentValue": 0.0,
+    "roomId": "LIB-301"
+  }
+]
+```
 
-### 7. Post a Sensor Reading
+---
+
+### 6. Post a Sensor Reading
 ```bash
 curl -X POST http://localhost:8080/SmartCampusAPIs/api/v1/sensors/TEMP-001/readings \
   -H "Content-Type: application/json" \
   -d '{"value":22.5}'
 ```
+**Response (201 Created):**
+```json
+{
+  "id": "a29df1b7-e1f4-4990-a77f-402b8f06202a",
+  "timestamp": 1776925487456,
+  "value": 22.5
+}
+```
 
-### 8. Get All Readings for a Sensor
+---
+
+### 7. Get All Readings for a Sensor
 ```bash
 curl -X GET http://localhost:8080/SmartCampusAPIs/api/v1/sensors/TEMP-001/readings
 ```
-
-### 9. Delete a Room (fails if sensors exist — returns 409)
-```bash
-curl -X DELETE http://localhost:8080/SmartCampusAPIs/api/v1/rooms/LIB-301
+**Response (200 OK):**
+```json
+[
+  {
+    "id": "a29df1b7-e1f4-4990-a77f-402b8f06202a",
+    "timestamp": 1776925487456,
+    "value": 22.5
+  }
+]
 ```
 
 ---
