@@ -1,0 +1,10 @@
+target/
+build/
+*.war
+*.jar
+.DS_Store
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
