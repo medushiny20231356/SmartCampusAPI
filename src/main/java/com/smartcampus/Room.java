@@ -23,6 +23,10 @@ public class Room {
     /**
      * Standard getters and setters for JAX-RS JSON conversion.
      */
+    
+
+    public Room() {
+    }
 
     public String getId() {
         return id;
